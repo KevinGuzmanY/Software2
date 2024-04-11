@@ -1,13 +1,23 @@
-const mongoose = require('mongoose');
+// comments.js
+class Comments {
+  constructor(productId, userId, content, rate) {
+    this.productId = productId;
+    this.userId = userId;
+    this.content = content;
+    this.rate = rate;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
 
-const commentSchema = new mongoose.Schema({
-  productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  content: String,
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-});
+  setContent(content) {
+    this.content = content;
+    this.updatedAt = new Date();
+  }
 
-const Comment = mongoose.model('Comment', commentSchema);
+  setRate(rate) {
+    this.rate = rate;
+    this.updatedAt = new Date();
+  }
+}
 
-module.exports = Comment;
+module.exports = Comments;

@@ -2,12 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const securityController = require('./interfaces/controlador/securityController');
 const productController = require('./interfaces/controlador/productController');
+const reviewController = require('./interfaces/controlador/reviewController');
 
 const app = express();
 app.use(express.json());
 
 app.use('/api/v1/security', securityController);
 app.use('/api/v1/product', productController);
+app.use('/api/v1/review', reviewController);
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

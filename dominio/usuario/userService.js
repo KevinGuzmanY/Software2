@@ -11,20 +11,20 @@ async function register(userData) {
         throw new Error('El correo electrónico ya está registrado');
     }
 
-    const user = new User({
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-        bio: userData.bio,
-        avatar: userData.avatar
-    });
+    const user = new User(
+        userData.username,
+        userData.email,
+        userData.password,
+        userData.bio,
+        userData.avatar
+    );
 
-    await user.save();
+    await userRepository.createUser(user);
     return user;
 }
 
 async function login(credentials) {
-    const user = await userRepository.findByEmail(credentials.email);
+    const user = await userRepository.findByEmail({ email: credentials.email });
     if (!user) {
         throw new Error('Credenciales inválidas');
     }

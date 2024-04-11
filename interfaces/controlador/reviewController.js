@@ -1,31 +1,54 @@
+// En productController.js
+const express = require('express');
+const router = express.Router();
+const commentService = require('../../dominio/comentario/commentService');
 
-const reviewService = require('../services/reviewService');
-
-async function rateProduct(req, res) {
+router.post('/rate', async (req, res) => {
     try {
-        await reviewService.rateProduct(req.params.productId, req.user._id, req.body.rating);
-        res.sendStatus(201);
+        const { productId, userId, rate } = req.body;
+
+        await commentService.rateProduct(productId, userId, rate);
+
+        res.status(200).json({ message: 'Producto calificado exitosamente.' });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-}
+});
 
-async function reviewProduct(req, res) {
+router.post('/new', async (req, res) => {
     try {
-        await reviewService.reviewProduct(req.params.productId, req.user._id, req.body.content);
-        res.sendStatus(201);
+        const { productId, userId, content, rate } = req.body;
+
+        await commentService.reviewProduct(productId, userId, content, rate);
+
+        res.status(200).json({ message: 'Reseña agregada exitosamente.' });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-}
+});
 
-async function getAverageRating(req, res) {
+router.get('/average-rating/:productId', async (req, res) => {
     try {
-        const averageRating = await reviewService.getAverageRating(req.params.productId);
-        res.json({ averageRating });
+        const productId = req.params.productId;
+
+        const averageRating = await commentService.getProductAverageRating(productId);
+
+        res.status(200).json({ averageRating });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-}
+});
 
-module.exports = { rateProduct, reviewProduct, getAverageRating };
+router.get('/reviews/:productId', async (req, res) => {
+    try {
+        const productId = req.params.productId;
+
+        const reviews = await commentService.getCommentsByProductId(productId);
+
+        res.status(200).json(reviews);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+module.exports = router;

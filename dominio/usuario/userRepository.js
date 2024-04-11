@@ -13,8 +13,8 @@ const userSchema = new mongoose.Schema({
 const UserModel = mongoose.model('User', userSchema);
 
 class UserRepository {
-  async createUser(username, email, password, bio, avatar) {
-    return UserModel.create({ username, email, password, bio, avatar });
+  async createUser(user) {
+    return UserModel.create(user);
   }
 
   async findByUsername(username) {
@@ -22,11 +22,11 @@ class UserRepository {
   }
 
   async findByEmail(email) {
-    return UserModel.findOne({ email });
+    return UserModel.findOne(email);
   }
 
   async findById(id) {
-    return UserModel.findById(id);
+    return UserModel.findById(id).exec();
   }
 
   async updateUser(id, updates) {
