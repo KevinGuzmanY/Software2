@@ -3,7 +3,6 @@ const router = express.Router();
 const productService = require('../../dominio/producto/productService');
 const commentService = require('../../dominio/comentario/commentService');
 
-// Route for creating a product
 router.post('/', async (req, res) => {
     try {
         const product = await productService.createProduct(req.body);
@@ -13,7 +12,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Route for updating a product
 router.put('/:productId', async (req, res) => {
     try {
         const product = await productService.updateProduct(req.params.productId, req.body);
@@ -23,7 +21,6 @@ router.put('/:productId', async (req, res) => {
     }
 });
 
-// Route for deleting a product
 router.delete('/:productId', async (req, res) => {
     try {
         const userId = req.query.userId;
