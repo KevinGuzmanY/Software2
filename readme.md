@@ -1,4 +1,4 @@
-# Documentación del Proyecto [Nombre del Proyecto]
+# Documentación del Proyecto 
 
 ## Introducción
 El proyecto es una aplicación para gestionar productos y reseñas asociadas a los mismos. Permite a los usuarios crear, buscar, calificar y revisar productos, así como ver detalles y calificaciones promedio.
